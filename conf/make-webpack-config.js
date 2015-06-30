@@ -1,7 +1,10 @@
+var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 var fs = require('fs');
 var webpack = require('webpack');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+
+var ReactGlobalizePlugin = require('react-globalize-webpack-plugin');
 
 function extractForProduction(loaders) {
   return ExtractTextPlugin.extract('style', loaders.substr(loaders.indexOf('!')));
@@ -26,7 +29,10 @@ module.exports = function(options) {
   var jsLoaders = ['babel'];
 
   return {
-    entry: './app/index.jsx',
+    entry: options.production ?  {
+      main: './app/index.jsx',
+      vendor: ['react', 'globalize']
+    } : './app/index.jsx',
     debug: !options.production,
     devtool: options.devtool,
     output: {
@@ -71,19 +77,19 @@ module.exports = function(options) {
         },
         {
           test: /\.png$/,
-          loader: "url?limit=100000&mimetype=image/png",
+          loader: 'url?limit=100000&mimetype=image/png',
         },
         {
           test: /\.svg$/,
-          loader: "url?limit=100000&mimetype=image/svg+xml",
+          loader: 'url?limit=100000&mimetype=image/svg+xml',
         },
         {
           test: /\.gif$/,
-          loader: "url?limit=100000&mimetype=image/gif",
+          loader: 'url?limit=100000&mimetype=image/gif',
         },
         {
           test: /\.jpg$/,
-          loader: "file",
+          loader: 'file',
         },
       ],
     },
@@ -93,8 +99,8 @@ module.exports = function(options) {
     plugins: options.production ? [
       // Important to keep React file size down
       new webpack.DefinePlugin({
-        "process.env": {
-          "NODE_ENV": JSON.stringify("production"),
+        'process.env': {
+          'NODE_ENV': JSON.stringify('production'),
         },
       }),
       new webpack.optimize.DedupePlugin(),
@@ -103,15 +109,23 @@ module.exports = function(options) {
           warnings: false,
         },
       }),
-      new ExtractTextPlugin("app.[hash].css"),
+      new ExtractTextPlugin('app.[hash].css'),
       new HtmlWebpackPlugin({
         template: './conf/tmpl.html',
         production: true,
       }),
+      new ReactGlobalizePlugin({
+        production: options.production,
+        defaultLocale: 'en'
+      }),
+      new CommonsChunkPlugin('vendor', 'vendor.[hash].js')
     ] : [
       new HtmlWebpackPlugin({
         template: './conf/tmpl.html',
       }),
-    ],
+      new ReactGlobalizePlugin({
+        defaultLocale: 'en'
+      })
+    ]
   };
 };

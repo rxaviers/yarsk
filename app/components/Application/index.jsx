@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../Header';
+import { FormatMessage } from 'react-globalize';
 
 /**
  * Import locally scoped styles using css-loader
@@ -16,8 +17,18 @@ export default class Application extends React.Component {
         <Header />
 
         <main className={styles.body}>
-          <p>Seems like creating your own React starter kit is a right of passage. So, here's mine.</p>
-          <p>For more information, see the <a href="https://github.com/bradleyboy/yarsk#yarsk">Readme</a>.</p>
+          <p><FormatMessage>Seems like creating your own React starter kit is a right of passage. So, here's mine.</FormatMessage></p>
+          <p>
+            <FormatMessage
+              elements={{
+                globalize: <a href='https://github.com/jquery/globalize/'></a>,
+                reactGlobalize: <a href='https://github.com/kborchers/react-globalize'></a>,
+                yarsk: <a href='https://github.com/bradleyboy/yarsk#yarsk'></a>
+              }}
+            >
+            For more information, see the [yarsk]Readme[/yarsk].
+            </FormatMessage>
+          </p>
         </main>
       </div>
     </div>;

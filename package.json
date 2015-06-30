@@ -15,7 +15,10 @@
   "author": "Brad Daily <brad@bradleyboy.com>",
   "license": "MIT",
   "dependencies": {
-    "react": "~0.13.0"
+    "cldr-data": ">=25",
+    "globalize": "git://github.com/jquery/globalize#fix-398-runtime",
+    "react": "~0.13.0",
+    "react-globalize": "git://github.com/rxaviers/react-globalize#b0.3.0"
   },
   "devDependencies": {
     "autoprefixer-loader": "^2.0.0",
@@ -42,6 +45,7 @@
     "karma-webpack": "^1.5.0",
     "less": "^2.4.0",
     "less-loader": "^2.1.0",
+    "react-globalize-webpack-plugin": "git://github.com/rxaviers/react-globalize-webpack-plugin#b0.0.1",
     "react-hot-loader": "^1.2.3",
     "sass-loader": "^1.0.0",
     "style-loader": "^0.12.0",
