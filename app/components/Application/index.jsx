@@ -29,6 +29,7 @@ export default class Application extends React.Component {
             For more information, see the [yarsk]Readme[/yarsk].
             </FormatMessage>
           </p>
+          <p><FormatMessage>Get all this for free.</FormatMessage></p>
         </main>
       </div>
     </div>;
