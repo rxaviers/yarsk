@@ -1,3 +1,4 @@
+import Globalize from 'globalize';
 import React from 'react';
 import Header from '../Header';
 import { FormatMessage } from 'react-globalize';
@@ -29,7 +30,9 @@ export default class Application extends React.Component {
             For more information, see the [yarsk]Readme[/yarsk].
             </FormatMessage>
           </p>
-          <p><FormatMessage>Get all this for free.</FormatMessage></p>
+          <p><FormatMessage variables={{ price: Globalize.formatCurrency(0, "USD") }}>
+            Get all this for free {price}.
+          </FormatMessage></p>
         </main>
       </div>
     </div>;
