@@ -186,7 +186,7 @@ The extra application code for locales could be loaded incrementally (in additio
 
 In 7.81KB (~7.3KB for the Globalize and ReactGlobalize runtime libraries, plus 0.5KB for the `en` application precompiled formatters), you have everything you need to localize your application for the English locale.
 
-| File | Minified + gzipped size | Summary |
+| File | Minified (but, NOT gzipped) size | Summary |
 |---|--:|---|
 | dist/app.[hash].js | 12.2KB | Demo application code. *Disclosure*: Currently, it includes 5.31KB of Globalize runtime lib code that should be moved into vendor |
 | dist/app-\<locale\>.[hash].js | ~0.5KB | Precompiled formatters used in this demo. |
@@ -204,7 +204,7 @@ Suppose that we include the following message in `components/Application/index.j
 
 Such change is going to produce the following impact on the production code.
 
-| File | Minified + gzipped size | Change |
+| File | Minified (but, NOT gzipped) size | Change |
 |---|--:|---|
 | dist/app.[hash].js | 12.3KB | +0.1KB (the new message) |
 | dist/app-\<locale\>.[hash].js | ~0.6KB | +0.1KB ([the new message formatter](https://gist.github.com/rxaviers/86dbc0a2e4dd15b019a2)) |
@@ -228,7 +228,7 @@ Now, suppose we include a localized `$0.00` in the message.
 
 Such change is going to produce the following impact on the production code.
 
-| File | Minified + gzipped size | Change |
+| File | Minified (but, NOT gzipped) size | Change |
 |---|--:|---|
 | dist/app.[hash].js | 17.4KB | +5.2KB *Disclosure*: it should be the same as before in here, since very little was added to the message itself. It happens that the currency and number external runtime libraries have been added in here |
 | dist/app-\<locale\>.[hash].js | ~1.0KB | +0.5KB ([the new message and currency formatters](https://gist.github.com/rxaviers/56b3b2716c97a30a1994)) |

@@ -16,7 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "cldr-data": ">=25",
-    "globalize": "git://github.com/jquery/globalize#fix-398-runtime",
+    "globalize": "git://github.com/jquery/globalize#runtime-temp-build",
     "react": "~0.13.0",
     "react-globalize": "git://github.com/rxaviers/react-globalize#b0.3.0"
   },
