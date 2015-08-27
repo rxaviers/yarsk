@@ -28,7 +28,7 @@ export default class Application extends React.Component {
               </tr>
               <tr>
                 <td><FormatMessage>Standalone Currency</FormatMessage></td>
-                <td>'<FormatCurrency currency='EUR'>{69900}</FormatCurrency>'</td>
+                <td>'<FormatCurrency currency='USD'>{69900}</FormatCurrency>'</td>
               </tr>
               <tr>
                 <td><FormatMessage>Standalone Date</FormatMessage></td>

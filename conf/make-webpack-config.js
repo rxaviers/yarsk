@@ -31,7 +31,16 @@ module.exports = function(options) {
   return {
     entry: options.production ?  {
       main: './app/index.jsx',
-      vendor: ['react', 'globalize']
+      vendor: [
+        'react',
+        'globalize',
+        'globalize/dist/globalize-runtime/number',
+        'globalize/dist/globalize-runtime/plural',
+        'globalize/dist/globalize-runtime/message',
+        'globalize/dist/globalize-runtime/currency',
+        'globalize/dist/globalize-runtime/date',
+        'globalize/dist/globalize-runtime/relative-time'
+      ]
     } : './app/index.jsx',
     debug: !options.production,
     devtool: options.devtool,
@@ -96,7 +105,18 @@ module.exports = function(options) {
     resolve: {
       extensions: ['', '.js', '.jsx', '.sass', '.scss', '.less', '.css'],
     },
-    plugins: options.production ? [
+    plugins: [
+      new HtmlWebpackPlugin({
+        production: options.production,
+        template: './conf/tmpl.html'
+      }),
+      new ReactGlobalizePlugin({
+        production: options.production,
+        developmentLocale: 'en',
+        supportedLocales: ['en'],
+        output: 'i18n/[locale].[hash].js'
+      }),
+    ].concat(options.production ? [
       // Important to keep React file size down
       new webpack.DefinePlugin({
         'process.env': {
@@ -110,22 +130,7 @@ module.exports = function(options) {
         },
       }),
       new ExtractTextPlugin('app.[hash].css'),
-      new HtmlWebpackPlugin({
-        template: './conf/tmpl.html',
-        production: true,
-      }),
-      new ReactGlobalizePlugin({
-        production: options.production,
-        defaultLocale: 'en'
-      }),
       new CommonsChunkPlugin('vendor', 'vendor.[hash].js')
-    ] : [
-      new HtmlWebpackPlugin({
-        template: './conf/tmpl.html',
-      }),
-      new ReactGlobalizePlugin({
-        defaultLocale: 'en'
-      })
-    ]
+    ] : [])
   };
 };
