@@ -32,14 +32,14 @@ module.exports = function(options) {
     entry: options.production ?  {
       main: './app/index.jsx',
       vendor: [
-        'react',
         'globalize',
         'globalize/dist/globalize-runtime/number',
         'globalize/dist/globalize-runtime/plural',
         'globalize/dist/globalize-runtime/message',
         'globalize/dist/globalize-runtime/currency',
         'globalize/dist/globalize-runtime/date',
-        'globalize/dist/globalize-runtime/relative-time'
+        'globalize/dist/globalize-runtime/relative-time',
+        'react'
       ]
     } : './app/index.jsx',
     debug: !options.production,
@@ -113,7 +113,9 @@ module.exports = function(options) {
       new ReactGlobalizePlugin({
         production: options.production,
         developmentLocale: 'en',
-        supportedLocales: ['en'],
+        supportedLocales: ['en', 'pt'],
+        messages: 'translations/[locale].json',
+        writeMessages: true,
         output: 'i18n/[locale].[hash].js'
       }),
     ].concat(options.production ? [
